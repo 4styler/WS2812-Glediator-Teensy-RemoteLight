@@ -43,10 +43,8 @@ void fadeall() { for(int i = 0; i < NUM_LEDS; i++) { leds[i].nscale8(250); } }
 byte r,g,b;
 int i;
 
-void loop() {
-  
-   while (!Serial.available()) {
-     static uint8_t hue = 0;
+void noserial() {
+  static uint8_t hue = 0;
      Serial.print("x");
       // First slide the led in one direction
       for(int i = 0; i < NUM_LEDS; i++) {
@@ -74,6 +72,13 @@ void loop() {
         // Wait a little bit before we loop around and do it again
         delay(20);
       }
+  
+}
+
+void loop() {
+  
+   while (!Serial.available()) {
+     noserial();
    }
    
    while (serialGlediator () != CMD_NEW_DATA) {}
